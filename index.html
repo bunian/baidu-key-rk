@@ -1,0 +1,102 @@
+<!doctype html>
+<html class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>排名查询</title>
+   <meta name="description" content="关键词批量查询助手">
+  <meta name="keywords" content="排名查询">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp"/>
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" href="./assets/css/amazeui.min.css">
+  <link rel="stylesheet" href="./assets/css/app.css">
+  <link rel="stylesheet" type="text/css" href="./css.css?2">
+  <script src="./js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="./js/tagsinput.js" type="text/javascript" charset="utf-8"></script>
+
+   <style>
+    .header {
+		padding:0;margin:0 auto;
+      text-align: center;
+	  max-width:670px;
+    }
+    .header h1 {
+      font-size: 200%;
+      color: #333;
+      margin-top: 30px;
+    }
+    .header p {
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+<div class="header">
+<div class="am-g">
+    <h1>排名查询</h1>
+    <p>关键词批量查询助手</p>
+  </div>
+  <hr />
+<div class="am-g">
+  <div class="am-u-md-8 am-u-sm-centered">
+  <form class="am-form" method="post">
+      <fieldset class="am-form-set">
+	  <div class="tagsinput-primary form-group">
+	    <input name="tagsinput" id="tagsinputval" class="tagsinput" data-role="tagsinput" value="" placeholder="输入关键词后按回车键">
+	</div>
+
+
+        <input type="text" id="url" placeholder="请输入域名">
+      </fieldset>
+       <a href="javascript:void(0)" onclick="baidu()"class="am-btn am-btn-primary am-btn-block">查询</a>
+	</form>
+  </div>
+</div>
+<br>
+<table class="am-table am-table-bordered am-table-striped am-table-compact">
+  <thead>
+  <tr>
+    <th style="text-align : center">关键词</th>
+    <th style="text-align : center">排名</th>
+  </tr>
+  </thead>
+  <tbody id="pm">
+
+  </tbody>
+</table>
+
+  <footer class="am-footer am-footer-default">
+
+    <div class="am-footer-miscs ">
+
+          <p>由 <a href="http://www.bunian.cn" title="不念博客" target="_blank" class="">不念博客</a>.<a href="https://www.bunian.cn/ai/">文章伪原创</a>
+            提供技术支持</p>
+        <p>CopyRight©2019  排名查询</p>
+    </div>
+  </footer>
+
+</div>
+
+
+<script type="text/javascript">
+function baidu(){
+arr=$('#tagsinputval').val().split(",");;
+	for(var i=0;i<arr.length;i++){
+	var url="bd.php?word="+ arr[i] +"&site="+ $('#url').val();
+		$.ajax({
+			url: url,
+			dataType: "json",
+			async: 1, 
+			type: "GET",
+
+			success: function(data) {
+				$("#pm").append('<tr><td>'+ data["word"]+'</td><td>'+data["rank"]+'</td><td>'+data["rank"]+'</td></tr>');
+			}
+		});	
+	}
+}
+</script>
+</body>
+</html>
